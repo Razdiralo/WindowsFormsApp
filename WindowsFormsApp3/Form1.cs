@@ -23,7 +23,7 @@ namespace WindowsFormsApp3
         private const float MIN_SCALE = 0.3f;
         private const float SCALE_STEP = 1.2f;
         private const int MAX_MATRIX_SIZE = 20;
-        private const int MATRIX_CELL_WIDTH = 60;
+        private const int MATRIX_CELL_WIDTH = 45;
         private const float DEFAULT_FONT_SIZE = 12f;
 
         #endregion
@@ -160,7 +160,7 @@ namespace WindowsFormsApp3
         private void BtnStartProgress_Click(object sender, EventArgs e)
         {
             if (_wasProgressStopped)
-            { 
+            {
                 progressBar1.Value = _savedProgressValue;
                 _wasProgressStopped = false;
             }
@@ -1131,6 +1131,24 @@ namespace WindowsFormsApp3
 
         #region Задание 6: Система команд
 
+        private CheckedListBox GetCurrentCheckedListBox()
+        {
+            if (tabControlLS.SelectedTab == tabPageLS1) return checkedListBoxCommandsLS1;
+            if (tabControlLS.SelectedTab == tabPageLS2) return checkedListBoxCommandsLS2;
+            if (tabControlLS.SelectedTab == tabPageLS3) return checkedListBoxCommandsLS3;
+            if (tabControlLS.SelectedTab == tabPageLS4) return checkedListBoxCommandsLS4;
+            if (tabControlLS.SelectedTab == tabPageLS5) return checkedListBoxCommandsLS5;
+            if (tabControlLS.SelectedTab == tabPageLS6) return checkedListBoxCommandsLS6;
+            if (tabControlLS.SelectedTab == tabPageLS7) return checkedListBoxCommandsLS7;
+            if (tabControlLS.SelectedTab == tabPageLS8) return checkedListBoxCommandsLS8;
+            if (tabControlLS.SelectedTab == tabPageLS9) return checkedListBoxCommandsLS9;
+            if (tabControlLS.SelectedTab == tabPageLS10) return checkedListBoxCommandsLS10;
+            if (tabControlLS.SelectedTab == tabPageLS11) return checkedListBoxCommandsLS11;
+            if (tabControlLS.SelectedTab == tabPageLS12) return checkedListBoxCommandsLS12;
+
+            return checkedListBoxCommandsLS1;
+        }
+
         private void TabControlLS_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControlLS.SelectedTab == null) return;
@@ -1146,8 +1164,9 @@ namespace WindowsFormsApp3
             {
                 _selectedLS = new LSItem { Name = lsName, Commands = new List<string>() };
 
-                for (int i = 0; i < checkedListBoxCommands.Items.Count; i++)
-                    checkedListBoxCommands.SetItemChecked(i, false);
+                var currentCheckedListBox = GetCurrentCheckedListBox();
+                for (int i = 0; i < currentCheckedListBox.Items.Count; i++)
+                    currentCheckedListBox.SetItemChecked(i, false);
             }
         }
 
@@ -1186,8 +1205,9 @@ namespace WindowsFormsApp3
                     if (_selectedLS == ls)
                     {
                         _selectedLS = null;
-                        for (int i = 0; i < checkedListBoxCommands.Items.Count; i++)
-                            checkedListBoxCommands.SetItemChecked(i, false);
+                        var currentCheckedListBox = GetCurrentCheckedListBox();
+                        for (int i = 0; i < currentCheckedListBox.Items.Count; i++)
+                            currentCheckedListBox.SetItemChecked(i, false);
                     }
                 }
             }
@@ -1201,12 +1221,14 @@ namespace WindowsFormsApp3
                         parentLs.Commands.Remove(commandName);
                         node.Parent.Nodes.Remove(node);
 
-                        int index = checkedListBoxCommands.Items.IndexOf(commandName);
+                        var currentCheckedListBox = GetCurrentCheckedListBox();
+                        int index = currentCheckedListBox.Items.IndexOf(commandName);
                         if (index >= 0)
-                            checkedListBoxCommands.SetItemChecked(index, false);
+                            currentCheckedListBox.SetItemChecked(index, false);
 
                         var cmd = _allCommands.FirstOrDefault(c => c.Name == commandName);
                         if (cmd != null) cmd.IsChecked = false;
+
                         if (parentLs.Commands.Count == 0 && parentLs.Node != null)
                         {
                             treeViewLS.Nodes.Remove(parentLs.Node);
@@ -1222,7 +1244,8 @@ namespace WindowsFormsApp3
         {
             BeginInvoke((MethodInvoker)(() =>
             {
-                string commandName = checkedListBoxCommands.Items[e.Index].ToString() ?? "";
+                var currentCheckedListBox = GetCurrentCheckedListBox();
+                string commandName = currentCheckedListBox.Items[e.Index].ToString() ?? "";
                 bool isChecked = e.NewValue == CheckState.Checked;
 
                 if (isChecked)
@@ -1294,14 +1317,16 @@ namespace WindowsFormsApp3
 
         private void UpdateCheckedListBoxFromLS(LSItem ls)
         {
-            for (int i = 0; i < checkedListBoxCommands.Items.Count; i++)
-                checkedListBoxCommands.SetItemChecked(i, false);
+            var currentCheckedListBox = GetCurrentCheckedListBox();
+
+            for (int i = 0; i < currentCheckedListBox.Items.Count; i++)
+                currentCheckedListBox.SetItemChecked(i, false);
 
             foreach (var cmd in ls.Commands)
             {
-                int index = checkedListBoxCommands.Items.IndexOf(cmd);
+                int index = currentCheckedListBox.Items.IndexOf(cmd);
                 if (index >= 0)
-                    checkedListBoxCommands.SetItemChecked(index, true);
+                    currentCheckedListBox.SetItemChecked(index, true);
             }
         }
 
