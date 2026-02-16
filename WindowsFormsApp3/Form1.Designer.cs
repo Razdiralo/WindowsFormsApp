@@ -71,6 +71,9 @@
             btnSaveLog = new Button();
             btnLoadLog = new Button();
             dataGridViewLog = new DataGridView();
+            Number = new DataGridViewTextBoxColumn();
+            Message = new DataGridViewTextBoxColumn();
+            Time = new DataGridViewTextBoxColumn();
             btnAddLog = new Button();
             txtMessage = new TextBox();
             lblMessage = new Label();
@@ -93,9 +96,7 @@
             treeViewLS = new TreeView();
             colorDialog1 = new ColorDialog();
             timer1 = new System.Windows.Forms.Timer(components);
-            Number = new DataGridViewTextBoxColumn();
-            Message = new DataGridViewTextBoxColumn();
-            Time = new DataGridViewTextBoxColumn();
+            groupBox1 = new GroupBox();
             tabControl1.SuspendLayout();
             tabPageTask1.SuspendLayout();
             tabPageTask2.SuspendLayout();
@@ -106,6 +107,8 @@
             ((System.ComponentModel.ISupportInitialize)dataGridViewLog).BeginInit();
             tabPageTask6.SuspendLayout();
             tabControlLS.SuspendLayout();
+            tabPageLS12.SuspendLayout();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -117,7 +120,7 @@
             tabControl1.Controls.Add(tabPageTask5);
             tabControl1.Controls.Add(tabPageTask6);
             tabControl1.Dock = DockStyle.Fill;
-            tabControl1.Font = new Font("Segoe UI", 10F);
+            tabControl1.Font = new Font("Microsoft Sans Serif", 8.25F);
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -126,64 +129,57 @@
             // 
             // tabPageTask1
             // 
-            tabPageTask1.Controls.Add(labelTask1Desc1);
-            tabPageTask1.Controls.Add(progressBar1);
-            tabPageTask1.Controls.Add(btnStartProgress);
-            tabPageTask1.Controls.Add(btnDelay);
-            tabPageTask1.Controls.Add(btnStop);
+            tabPageTask1.Controls.Add(groupBox1);
             tabPageTask1.ForeColor = SystemColors.ControlText;
-            tabPageTask1.Location = new Point(4, 26);
+            tabPageTask1.Location = new Point(4, 22);
             tabPageTask1.Name = "tabPageTask1";
             tabPageTask1.Padding = new Padding(15);
-            tabPageTask1.Size = new Size(992, 670);
+            tabPageTask1.Size = new Size(992, 674);
             tabPageTask1.TabIndex = 0;
             tabPageTask1.Text = "Задание 1";
             tabPageTask1.UseVisualStyleBackColor = true;
             // 
             // labelTask1Desc1
             // 
-            labelTask1Desc1.Font = new Font("Segoe UI", 12F);
-            labelTask1Desc1.Location = new Point(18, 153);
+            labelTask1Desc1.Font = new Font("Microsoft Sans Serif", 8.25F);
+            labelTask1Desc1.Location = new Point(6, 111);
             labelTask1Desc1.Name = "labelTask1Desc1";
-            labelTask1Desc1.Size = new Size(697, 72);
+            labelTask1Desc1.Size = new Size(620, 72);
             labelTask1Desc1.TabIndex = 4;
             labelTask1Desc1.Text = "По заполнению прогрессбара выводится сообщение: \"Прогрессбар заполнен\". Затем прогрессбар идёт в обратном направлении. По завершении выводится сообщение \"Прогрессбар пуст\".";
-            labelTask1Desc1.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // progressBar1
             // 
-            progressBar1.Location = new Point(18, 18);
+            progressBar1.Location = new Point(6, 24);
             progressBar1.Name = "progressBar1";
-            progressBar1.Size = new Size(620, 40);
+            progressBar1.Size = new Size(620, 26);
             progressBar1.Style = ProgressBarStyle.Continuous;
             progressBar1.TabIndex = 0;
             // 
             // btnStartProgress
             // 
-            btnStartProgress.BackColor = SystemColors.ControlLight;
+            btnStartProgress.BackColor = Color.Transparent;
             btnStartProgress.FlatAppearance.BorderColor = Color.Silver;
             btnStartProgress.FlatAppearance.BorderSize = 2;
-            btnStartProgress.FlatStyle = FlatStyle.Flat;
-            btnStartProgress.Font = new Font("Segoe UI", 12F);
-            btnStartProgress.Location = new Point(18, 64);
+            btnStartProgress.Font = new Font("Microsoft Sans Serif", 8.25F);
+            btnStartProgress.Location = new Point(6, 53);
             btnStartProgress.Margin = new Padding(0);
             btnStartProgress.Name = "btnStartProgress";
-            btnStartProgress.Size = new Size(306, 40);
+            btnStartProgress.Size = new Size(306, 26);
             btnStartProgress.TabIndex = 1;
             btnStartProgress.Text = "Запустить прогрессбар";
-            btnStartProgress.UseVisualStyleBackColor = false;
+            btnStartProgress.UseVisualStyleBackColor = true;
             btnStartProgress.Click += BtnStartProgress_Click;
             // 
             // btnDelay
             // 
-            btnDelay.BackColor = SystemColors.ControlLight;
+            btnDelay.BackColor = Color.Transparent;
             btnDelay.FlatAppearance.BorderColor = Color.Silver;
             btnDelay.FlatAppearance.BorderSize = 2;
-            btnDelay.FlatStyle = FlatStyle.Flat;
-            btnDelay.Font = new Font("Segoe UI", 12F);
-            btnDelay.Location = new Point(332, 64);
+            btnDelay.Font = new Font("Microsoft Sans Serif", 8.25F);
+            btnDelay.Location = new Point(320, 53);
             btnDelay.Name = "btnDelay";
-            btnDelay.Size = new Size(306, 40);
+            btnDelay.Size = new Size(306, 26);
             btnDelay.TabIndex = 2;
             btnDelay.Text = "Задержка на секунду";
             btnDelay.UseVisualStyleBackColor = false;
@@ -191,14 +187,13 @@
             // 
             // btnStop
             // 
-            btnStop.BackColor = SystemColors.ControlLight;
+            btnStop.BackColor = Color.Transparent;
             btnStop.FlatAppearance.BorderColor = Color.Silver;
             btnStop.FlatAppearance.BorderSize = 2;
-            btnStop.FlatStyle = FlatStyle.Flat;
-            btnStop.Font = new Font("Segoe UI", 12F);
-            btnStop.Location = new Point(18, 110);
+            btnStop.Font = new Font("Microsoft Sans Serif", 8.25F);
+            btnStop.Location = new Point(6, 82);
             btnStop.Name = "btnStop";
-            btnStop.Size = new Size(620, 40);
+            btnStop.Size = new Size(620, 26);
             btnStop.TabIndex = 3;
             btnStop.Text = "Стоп";
             btnStop.UseVisualStyleBackColor = false;
@@ -223,7 +218,7 @@
             tabPageTask2.Location = new Point(4, 26);
             tabPageTask2.Name = "tabPageTask2";
             tabPageTask2.Padding = new Padding(15);
-            tabPageTask2.Size = new Size(1192, 770);
+            tabPageTask2.Size = new Size(992, 670);
             tabPageTask2.TabIndex = 1;
             tabPageTask2.Text = "Задание 2";
             tabPageTask2.UseVisualStyleBackColor = true;
@@ -421,7 +416,7 @@
             tabPageTask3.Location = new Point(4, 26);
             tabPageTask3.Name = "tabPageTask3";
             tabPageTask3.Padding = new Padding(15);
-            tabPageTask3.Size = new Size(1192, 770);
+            tabPageTask3.Size = new Size(992, 670);
             tabPageTask3.TabIndex = 2;
             tabPageTask3.Text = "Задание 3";
             tabPageTask3.UseVisualStyleBackColor = true;
@@ -647,7 +642,7 @@
             tabPageTask4.Location = new Point(4, 26);
             tabPageTask4.Name = "tabPageTask4";
             tabPageTask4.Padding = new Padding(15);
-            tabPageTask4.Size = new Size(1192, 770);
+            tabPageTask4.Size = new Size(992, 670);
             tabPageTask4.TabIndex = 3;
             tabPageTask4.Text = "Задание 4";
             tabPageTask4.UseVisualStyleBackColor = true;
@@ -857,6 +852,27 @@
             dataGridViewLog.Size = new Size(764, 327);
             dataGridViewLog.TabIndex = 4;
             // 
+            // Number
+            // 
+            Number.FillWeight = 19.796957F;
+            Number.HeaderText = "№";
+            Number.Name = "Number";
+            Number.ReadOnly = true;
+            // 
+            // Message
+            // 
+            Message.FillWeight = 78.8884354F;
+            Message.HeaderText = "Время";
+            Message.Name = "Message";
+            Message.ReadOnly = true;
+            // 
+            // Time
+            // 
+            Time.FillWeight = 201.314621F;
+            Time.HeaderText = "Сообщение";
+            Time.Name = "Time";
+            Time.ReadOnly = true;
+            // 
             // btnAddLog
             // 
             btnAddLog.BackColor = SystemColors.ControlLight;
@@ -902,13 +918,12 @@
             // 
             // tabPageTask6
             // 
-            tabPageTask6.Controls.Add(checkedListBoxCommands);
             tabPageTask6.Controls.Add(tabControlLS);
             tabPageTask6.Controls.Add(treeViewLS);
             tabPageTask6.Location = new Point(4, 26);
             tabPageTask6.Name = "tabPageTask6";
             tabPageTask6.Padding = new Padding(15);
-            tabPageTask6.Size = new Size(1192, 770);
+            tabPageTask6.Size = new Size(992, 670);
             tabPageTask6.TabIndex = 5;
             tabPageTask6.Text = "Задание 6";
             tabPageTask6.UseVisualStyleBackColor = true;
@@ -917,13 +932,13 @@
             // 
             checkedListBoxCommands.BorderStyle = BorderStyle.FixedSingle;
             checkedListBoxCommands.CheckOnClick = true;
-            checkedListBoxCommands.Font = new Font("Segoe UI", 11F);
+            checkedListBoxCommands.Font = new Font("Microsoft Sans Serif", 8.25F);
             checkedListBoxCommands.FormattingEnabled = true;
             checkedListBoxCommands.IntegralHeight = false;
             checkedListBoxCommands.Items.AddRange(new object[] { "Команда 1", "Команда 2", "Команда 3", "Команда 4", "Команда 5", "Команда 6", "Команда 7", "Команда 8", "Команда 9", "Команда 10", "Команда 11", "Команда 12", "Сигнализация", "Отключение" });
-            checkedListBoxCommands.Location = new Point(417, 140);
+            checkedListBoxCommands.Location = new Point(6, 3);
             checkedListBoxCommands.Name = "checkedListBoxCommands";
-            checkedListBoxCommands.Size = new Size(378, 312);
+            checkedListBoxCommands.Size = new Size(258, 348);
             checkedListBoxCommands.TabIndex = 12;
             checkedListBoxCommands.ItemCheck += CheckedListBoxCommands_ItemCheck;
             // 
@@ -942,23 +957,23 @@
             tabControlLS.Controls.Add(tabPageLS10);
             tabControlLS.Controls.Add(tabPageLS11);
             tabControlLS.Controls.Add(tabPageLS12);
-            tabControlLS.Font = new Font("Segoe UI", 12F);
-            tabControlLS.ItemSize = new Size(60, 30);
+            tabControlLS.Font = new Font("Microsoft Sans Serif", 8.25F);
+            tabControlLS.ItemSize = new Size(43, 21);
             tabControlLS.Location = new Point(417, 42);
             tabControlLS.Multiline = true;
             tabControlLS.Name = "tabControlLS";
             tabControlLS.SelectedIndex = 0;
-            tabControlLS.Size = new Size(378, 66);
+            tabControlLS.Size = new Size(278, 410);
             tabControlLS.SizeMode = TabSizeMode.Fixed;
             tabControlLS.TabIndex = 11;
             tabControlLS.SelectedIndexChanged += TabControlLS_SelectedIndexChanged;
             // 
             // tabPageLS1
             // 
-            tabPageLS1.Location = new Point(4, 67);
+            tabPageLS1.Location = new Point(4, 49);
             tabPageLS1.Name = "tabPageLS1";
             tabPageLS1.Padding = new Padding(3);
-            tabPageLS1.Size = new Size(370, 0);
+            tabPageLS1.Size = new Size(270, 357);
             tabPageLS1.TabIndex = 0;
             tabPageLS1.Text = "ЛС1";
             tabPageLS1.UseVisualStyleBackColor = true;
@@ -1055,20 +1070,21 @@
             // 
             // tabPageLS11
             // 
-            tabPageLS11.Location = new Point(4, 67);
+            tabPageLS11.Location = new Point(4, 49);
             tabPageLS11.Name = "tabPageLS11";
             tabPageLS11.Padding = new Padding(3);
-            tabPageLS11.Size = new Size(370, 0);
+            tabPageLS11.Size = new Size(270, 357);
             tabPageLS11.TabIndex = 10;
             tabPageLS11.Text = "ЛС11";
             tabPageLS11.UseVisualStyleBackColor = true;
             // 
             // tabPageLS12
             // 
-            tabPageLS12.Location = new Point(4, 67);
+            tabPageLS12.Controls.Add(checkedListBoxCommands);
+            tabPageLS12.Location = new Point(4, 49);
             tabPageLS12.Name = "tabPageLS12";
             tabPageLS12.Padding = new Padding(3);
-            tabPageLS12.Size = new Size(370, 0);
+            tabPageLS12.Size = new Size(270, 357);
             tabPageLS12.TabIndex = 11;
             tabPageLS12.Text = "ЛС12";
             tabPageLS12.UseVisualStyleBackColor = true;
@@ -1090,26 +1106,20 @@
             // 
             timer1.Tick += Timer1_Tick;
             // 
-            // Number
+            // groupBox1
             // 
-            Number.FillWeight = 19.796957F;
-            Number.HeaderText = "№";
-            Number.Name = "Number";
-            Number.ReadOnly = true;
-            // 
-            // Message
-            // 
-            Message.FillWeight = 78.8884354F;
-            Message.HeaderText = "Время";
-            Message.Name = "Message";
-            Message.ReadOnly = true;
-            // 
-            // Time
-            // 
-            Time.FillWeight = 201.314621F;
-            Time.HeaderText = "Сообщение";
-            Time.Name = "Time";
-            Time.ReadOnly = true;
+            groupBox1.Controls.Add(progressBar1);
+            groupBox1.Controls.Add(labelTask1Desc1);
+            groupBox1.Controls.Add(btnStop);
+            groupBox1.Controls.Add(btnDelay);
+            groupBox1.Controls.Add(btnStartProgress);
+            groupBox1.Font = new Font("Microsoft Sans Serif", 8.25F);
+            groupBox1.Location = new Point(18, 18);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(638, 192);
+            groupBox1.TabIndex = 5;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Задание 1";
             // 
             // Form1
             // 
@@ -1134,6 +1144,8 @@
             ((System.ComponentModel.ISupportInitialize)dataGridViewLog).EndInit();
             tabPageTask6.ResumeLayout(false);
             tabControlLS.ResumeLayout(false);
+            tabPageLS12.ResumeLayout(false);
+            groupBox1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1223,5 +1235,6 @@
         private DataGridViewTextBoxColumn Number;
         private DataGridViewTextBoxColumn Message;
         private DataGridViewTextBoxColumn Time;
+        private GroupBox groupBox1;
     }
 }
