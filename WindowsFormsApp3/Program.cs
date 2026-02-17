@@ -1,5 +1,3 @@
-using WindowsFormsApp3;
-
 namespace WindowsFormsApp3
 {
     internal static class Program

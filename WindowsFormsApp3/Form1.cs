@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.IO;
-using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -19,12 +13,12 @@ namespace WindowsFormsApp3
         private const int PROGRESS_TIMER_INTERVAL = 50;
         private const int PROGRESS_STEP = 1;
         private const int DELAY_INTERVAL = 1000;
-        private const float SHAPE_SIZE_FACTOR = 20f;
-        private const float MIN_SCALE = 0.3f;
-        private const float SCALE_STEP = 1.2f;
         private const int MAX_MATRIX_SIZE = 20;
         private const int MATRIX_CELL_WIDTH = 45;
         private const float DEFAULT_FONT_SIZE = 12f;
+        private const float SHAPE_SIZE_FACTOR = 20f;
+        private const float MIN_SCALE = 0.3f;
+        private const float SCALE_STEP = 1.2f;
 
         #endregion
 
@@ -1193,6 +1187,12 @@ namespace WindowsFormsApp3
             var node = treeViewLS.GetNodeAt(e.Location);
             if (node == null) return;
 
+            if (_selectedLS == null)
+            {
+                string lsName = tabControlLS.SelectedTab.Text;
+                _activeLS.TryGetValue(lsName, out _selectedLS);
+            }
+
             if (node.Parent == null)
             {
                 if (node.Tag is LSItem ls && ConfirmDelete($"Удалить {ls.Name}?"))
@@ -1244,6 +1244,19 @@ namespace WindowsFormsApp3
         {
             BeginInvoke((MethodInvoker)(() =>
             {
+                if (_selectedLS == null)
+                {
+                    string lsName = tabControlLS.SelectedTab.Text;
+                    if (_activeLS.TryGetValue(lsName, out var ls))
+                    {
+                        _selectedLS = ls;
+                    }
+                    else
+                    {
+                        _selectedLS = new LSItem { Name = lsName, Commands = new List<string>() };
+                    }
+                }
+
                 var currentCheckedListBox = GetCurrentCheckedListBox();
                 string commandName = currentCheckedListBox.Items[e.Index].ToString() ?? "";
                 bool isChecked = e.NewValue == CheckState.Checked;
@@ -1343,46 +1356,6 @@ namespace WindowsFormsApp3
 
         private static bool ConfirmDelete(string message) =>
             MessageBox.Show(message, "Подтверждение удаления", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
-
-        #endregion
-
-        #region Классы данных
-
-        [Serializable]
-        public class Shape
-        {
-            public string Type { get; set; } = "";
-            public PointF Position { get; set; }
-
-            [XmlIgnore]
-            public Color Color { get; set; } = Color.Black;
-
-            [XmlElement("Color")]
-            public string ColorHtml
-            {
-                get => ColorTranslator.ToHtml(Color);
-                set => Color = ColorTranslator.FromHtml(value);
-            }
-
-            public float Size { get; set; } = 1f;
-            public string Text { get; set; } = "";
-            public bool ShouldSerializeText() => !string.IsNullOrEmpty(Text);
-            public bool ShouldSerializeColorHtml() => Color != Color.Black;
-        }
-
-        public class CommandItem
-        {
-            public string Name { get; set; } = "";
-            public bool IsChecked { get; set; }
-            public override string ToString() => Name;
-        }
-
-        public class LSItem
-        {
-            public string Name { get; set; } = "";
-            public List<string> Commands { get; set; } = new();
-            public TreeNode Node { get; set; } = null!;
-        }
 
         #endregion
     }
